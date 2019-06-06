@@ -109,4 +109,10 @@
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css">
   <link rel="stylesheet" href="/bower/plottable/plottable.css">
+  <meta property="og:title" content="MorpheneDB">
+  <meta property="og:site_name" content="MorpheneDB - Morphene Blockchain Explorer">
+  <meta property="og:url" content="https://db.morphene.io/">
+  <meta property="og:description" content="MorpheneDB is a Blockchain Explorer for the Morphene Database. Visit https://morphene.io for more information about the Morphene Blockchain.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://db.morphene.io/explorers/morphene.png">
 </head>
