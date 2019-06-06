@@ -21,24 +21,6 @@ d3.json("/api/account/{{ account.name }}/history").get(function(error, rows) {
     return new Date(dateString);
   };
   var pVests = function(d) { return +d.vests; };
-  var pPosts = function(d) { return +d.posts; };
-  var pFollowers = function(d) { return +d.followers; };
-
-  // Chart Highest Payouts
-  var lPosts = new Plottable.Plots.Bar();
-  lPosts.addDataset(dataset);
-  lPosts.x(pDate, xScale)
-          .y(pPosts, yScale)
-          .attr("fill", "#dddddd")
-          .attr("stroke-width", 0);
-
-  // Chart Totals
-  var lFollowers = new Plottable.Plots.Line();
-  lFollowers.addDataset(dataset);
-  lFollowers.x(pDate, xScale)
-          .y(pFollowers, yScale)
-          .attr("stroke", "#0700D4")
-          ;
 
   // Chart Posts
   var lVests = new Plottable.Plots.Line();
@@ -50,7 +32,7 @@ d3.json("/api/account/{{ account.name }}/history").get(function(error, rows) {
 
   var cs = new Plottable.Scales.Color();
   cs.range(["#dddddd", "#0700D4", "#EF320B"]);
-  cs.domain(["Posts", "Followers", "Vests"]);
+  cs.domain(["Vests"]);
   var legend = new Plottable.Components.Legend(cs);
   legend.maxEntriesPerRow(3);
 
@@ -68,7 +50,7 @@ d3.json("/api/account/{{ account.name }}/history").get(function(error, rows) {
   var yLabelVests = new Plottable.Components.AxisLabel("VESTS", "90");
   var xLabelTitle = new Plottable.Components.TitleLabel("30-day account history", "0");
 
-  var plots = new Plottable.Components.Group([lPosts, lFollowers, lVests]);
+  var plots = new Plottable.Components.Group([lVests]);
   var table = new Plottable.Components.Table([
     [null, null, xLabelTitle, null, null],
     [null, null, legend, null, null],

@@ -1,4 +1,4 @@
-<div class="ui fixed inverted blue main menu">
+<div class="ui fixed inverted main menu">
   <div class="ui container">
     <a class="launch icon item">
       <i class="content icon"></i>
@@ -16,7 +16,7 @@
   </div>
 </div>
 <!-- Following Menu -->
-<div class="ui blue inverted top fixed mobile hidden menu">
+<div class="ui inverted top fixed mobile hidden menu">
   <div class="ui container">
     <div class="item" style="background: white">
       <div class="ui floating labeled dropdown">

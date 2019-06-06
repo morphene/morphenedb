@@ -21,7 +21,7 @@
   <h1 class="ui header">
     MorpheneDB
     <div class="sub header">
-      Block explorer and database for the MORPH blockchain.
+      Block explorer and database for the Morphene Blockchain.
     </div>
   </h1>
   <div class="ui stackable grid">

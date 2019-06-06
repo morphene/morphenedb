@@ -1,29 +1,3 @@
-<div class="ui three small secondary statistics">
-  <div class="statistic">
-    <div class="value">
-      {{ account.followers | length }}
-    </div>
-    <div class="label">
-      Followers
-    </div>
-  </div>
-  <div class="statistic">
-    <div class="value">
-      {{ account.post_count }}
-    </div>
-    <div class="label">
-      Posts
-    </div>
-  </div>
-  <div class="statistic">
-    <div class="value">
-      {{ account.following | length }}
-    </div>
-    <div class="label">
-      Following
-    </div>
-  </div>
-</div>
 <h3 class="ui header">
   Recent History
   <div class="sub header">
@@ -38,15 +12,15 @@
   <tr>
     <td class="three wide">
       <div class="ui small header">
-        <?php echo $this->opName::string($item[1]['op'], $account) ?>
+        <?php echo $this->opName::string($item['op'], $account) ?>
         <div class="sub header">
-          <?php echo $this->timeAgo::string($item[1]['timestamp']); ?>
-          <br><a href="/block/{{ item[1]['block' ]}}"><small style="color: #bbb">Block #{{ item[1]['block' ]}}</small></a>
+          <?php echo $this->timeAgo::string($item['timestamp']); ?>
+          <br><a href="/block/{{ item['block' ]}}"><small style="color: #bbb">Block #{{ item['block' ]}}</small></a>
         </div>
       </div>
     </td>
     <td>
-      {% include "_elements/tx/" ~ item['op'][0] %}
+      {% include "_elements/definition_table" with ['data': item['op']] %}
     </td>
   </tr>
   {% else %}

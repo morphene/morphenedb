@@ -1,14 +1,14 @@
 {% extends 'layouts/default.volt' %}
 
 {% block content %}
-<div class="ui vertical stripe segment">
+<div class="ui vertical stripe segment" style="background-color: #e0e0e0 !important">
   <div class="ui top aligned stackable grid container">
     <div class="row">
       <div class="sixteen wide column">
         <div class="ui huge header">
           Witnesses
           <div class="sub header">
-            DPOS elected witnesses and relevant historical information.
+            Witnesses and relevant historical information.
           </div>
         </div>
         <div style="overflow-x:auto;">

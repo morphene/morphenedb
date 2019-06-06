@@ -5,15 +5,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="ui vertical stripe segment">
+<div class="ui vertical stripe segment" style="background-color: #e0e0e0 !important">
   <div class="ui middle aligned stackable grid container">
     <div class="row">
       <div class="column">
         <div class="ui huge header">
           Accounts
-          <div class="sub header">
-            Accounts sorted by various metrics (richlist by default)
-          </div>
         </div>
         <div class="ui top attached menu">
           <div class="ui dropdown item">
@@ -51,7 +48,7 @@
             <tr>
               <td>
                 <div class="ui header">
-                  {{ account.name }}
+                  <a href="/@{{account.name}}">{{ account.name }}</a>
                 </div>
               </td>
               <td class="collapsing right aligned">

@@ -6,7 +6,7 @@
       padding-top: 3em !important;
     }
     body.pushable>.pusher {
-      background: #efefef;
+      background: #e0e0e0 !important;
     }
     .ui.vertical.stripe {
       padding: 3em 0em;
