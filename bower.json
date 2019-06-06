@@ -1,8 +1,8 @@
 {
-  "name": "steemdb",
-  "homepage": "https://github.com/aaroncox/steemdb",
+  "name": "morphenedb",
+  "homepage": "https://github.com/morphene/morphenedb",
   "authors": [
-    "Aaron Cox <aaron.cox@greymass.com>"
+    "Andrew Chaney <andrew@boonedevelopment.com>"
   ],
   "description": "",
   "main": "",

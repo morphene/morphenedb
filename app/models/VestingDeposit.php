@@ -1,5 +1,5 @@
 <?php
-namespace SteemDB\Models;
+namespace MorpheneDB\Models;
 
 class VestingDeposit extends Document
 {

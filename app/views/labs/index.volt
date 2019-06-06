@@ -16,7 +16,7 @@
     <div class="row">
       <div class="column">
         <div class="ui huge header">
-          SteemDB Labs
+          MorpheneDB Labs
           <div class="sub header">
             Experimental projects and testing grounds for various concepts.
           </div>

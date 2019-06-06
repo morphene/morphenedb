@@ -1,12 +1,6 @@
 <head>
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui' />
-  <title>SteemDB - STEEM Blockchain Explorer</title>
-  {% if post is defined %}
-  <link rel="canonical" href="https://steemit.com/{{ post.category }}/@{{ post.author }}/{{ post.permlink }}"/>
-  {% endif %}
-  {% if posts is defined and posts[0] is defined %}
-  <link rel="canonical" href="https://steemit.com/{{ posts[0].category }}/@{{ posts[0].author }}/{{ posts[0].permlink }}"/>
-  {% endif %}
+  <title>MorpheneDB - Morphene Blockchain Explorer</title>
   <style>
     .ui.vertical.sidebar.menu {
       padding-top: 3em !important;

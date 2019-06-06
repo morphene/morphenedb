@@ -46,13 +46,13 @@
       </div>
     </td>
     <td>
-      {% include "_elements/tx/" ~ item[1]['op'][0] %}
+      {% include "_elements/tx/" ~ item['op'][0] %}
     </td>
   </tr>
   {% else %}
   <tr>
     <td>
-      Unable to connect to steemd for to load recent history.
+      Unable to connect to morphened for to load recent history.
     </td>
   </tr>
   {% endfor %}

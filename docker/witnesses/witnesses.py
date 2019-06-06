@@ -1,6 +1,6 @@
 from datetime import datetime
 from pymongo import MongoClient
-from steem import Steem
+from morphenepython import MorpheneClient
 from pprint import pprint
 from time import gmtime, strftime
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -10,19 +10,20 @@ import sys
 import os
 
 fullnodes = [
-    'https://api.steemit.com',
+    'http://morphene-witness:8090',
+    # 'https://morphene.io/rpc',
 ]
-rpc = Steem(fullnodes)
+mph = MorpheneClient(fullnodes)
 
-mongo = MongoClient("mongodb://192.168.0.1")
-db = mongo.steemdb
+mongo = MongoClient("mongodb://mongo:27017")
+db = mongo.morphenedb
 
 misses = {}
 
 # Command to check how many blocks a witness has missed
 def check_misses():
     global misses
-    witnesses = rpc.get_witnesses_by_vote('', 100)
+    witnesses = mph.rpc.get_witnesses_by_vote('', 100)
     for witness in witnesses:
         owner = str(witness['owner'])
         # Check if we have a status on the current witness
@@ -46,29 +47,26 @@ def check_misses():
 
 def update_witnesses():
     now = datetime.now().date()
-    # pprint("[STEEM] - Update Miner Queue")
-    # miners = rpc.get_miner_queue()
-    # db.statistics.update({
-    #   '_id': 'miner_queue'
-    # }, {
-    #   'key': 'miner_queue',
-    #   'updated': datetime.combine(now, datetime.min.time()),
-    #   'value': miners
-    # }, upsert=True)
+    pprint("[MORPHENE] - Update Miner Queue")
+    miners = mph.rpc.get_miner_queue()
+    db.statistics.replace_one({
+      '_id': 'miner_queue'
+    }, {
+      'key': 'miner_queue',
+      'updated': datetime.combine(now, datetime.min.time()),
+      'value': miners
+    }, upsert=True)
     scantime = datetime.now()
-    users = rpc.get_witnesses_by_vote('', 100)
+    users = mph.rpc.get_witnesses_by_vote('', 100)
     pprint(users)
-    pprint("[STEEM] - Update Witnesses (" + str(len(users)) + " accounts)")
-    db.witness.remove({})
+    pprint("[MORPHENE] - Update Witnesses (" + str(len(users)) + " accounts)")
+    db.witness.delete_one({})
     for user in users:
         # Convert to Numbers
         for key in ['virtual_last_update', 'virtual_position', 'virtual_scheduled_time', 'votes']:
             user[key] = float(user[key])
-        # Convert to Date
-        for key in ['last_sbd_exchange_update']:
-            user[key] = datetime.strptime(user[key], "%Y-%m-%dT%H:%M:%S")
         # Save current state of account
-        db.witness.update({'_id': user['owner']}, user, upsert=True)
+        db.witness.replace_one({'_id': user['owner']}, user, upsert=True)
         # Create our Snapshot dict
         snapshot = user.copy()
         _id = user['owner'] + '|' + now.strftime('%Y%m%d')
@@ -77,7 +75,7 @@ def update_witnesses():
           'created': scantime
         })
         # Save Snapshot in Database
-        db.witness_history.update({'_id': _id}, snapshot, upsert=True)
+        db.witness_history.replace_one({'_id': _id}, snapshot, upsert=True)
 
 def run():
     update_witnesses()

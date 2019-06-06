@@ -1,5 +1,5 @@
 <?php
-namespace SteemDB\Helpers;
+namespace MorpheneDB\Helpers;
 
 use Phalcon\Tag;
 

@@ -1,8 +1,7 @@
 <?php
-namespace SteemDB\Controllers;
+namespace MorpheneDB\Controllers;
 
-use SteemDB\Models\Account;
-use SteemDB\Models\Comment;
+use MorpheneDB\Models\Account;
 
 use MongoDB\BSON\Regex;
 
@@ -44,14 +43,5 @@ class SearchController extends ControllerBase
   public function pageAction()
   {
     $this->view->q = $q = $this->request->get("q");
-    if($q) {
-      $this->view->results = $results = Comment::agg(array(
-        [ '$match' => [ '$text' => [ '$search' => $q ] ] ],
-        [ '$sort' => [ 'score' => [ '$meta' => "textScore" ] ] ],
-        [ '$limit' => 100 ],
-        // [ '$project' => [ 'title' => 1, '_id' => 0 , '_ts' => 1] ],
-      ));
-    }
-
   }
 }

@@ -1,0 +1,11 @@
+[Unit]
+Description=MorpheneDB Witnesses Service
+
+[Service]
+Environment=morphenenode=morphene.io/rpc
+WorkingDirectory=/var/www/morphenedb/docker/witnesses
+ExecStart=/usr/bin/python3 witnesses.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

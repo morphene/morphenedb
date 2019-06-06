@@ -54,7 +54,7 @@ $di->set('view', function () {
         $compiler->addFunction(
           'markdown',
           function ($resolvedArgs, $exprArgs) {
-            return 'SteemDB\Helpers\Markdown::string(' . $resolvedArgs . ')';
+            return 'MorpheneDB\Helpers\Markdown::string(' . $resolvedArgs . ')';
           }
         );
         return $volt;
@@ -126,7 +126,7 @@ $di->set('dispatcher', function () {
     }
   });
   $dispatcher = new MvcDispatcher();
-  $dispatcher->setDefaultNamespace('SteemDB\Controllers');
+  $dispatcher->setDefaultNamespace('MorpheneDB\Controllers');
   $dispatcher->setEventsManager($eventsManager);
   return $dispatcher;
 });
@@ -157,9 +157,9 @@ $di->set('logger', function ($filename = null, $format = null) {
   return $logger;
 });
 
-$di->set('steemd', function() {
-  require_once(APP_PATH . '/libs/steemd.php');
-  return new Steemd('https://node.steem.ws');
+$di->set('morphened', function() {
+  require_once(APP_PATH . '/libs/morphened.php');
+  return new Morphened('https://morphene.io/rpc');
 });
 
 $di->set('memcached', function() {
@@ -185,8 +185,8 @@ $di->set('util', function() {
   return new Utilities($this);
 });
 
-$di->set('convert', function () { return new SteemDB\Helpers\Convert(); });
-$di->set('largeNumber', function () { return new SteemDB\Helpers\LargeNumber(); });
-$di->set('reputation', function () { return new SteemDB\Helpers\Reputation(); });
-$di->set('timeAgo', function () { return new SteemDB\Helpers\TimeAgo(); });
-$di->set('opName', function () { return new SteemDB\Helpers\OpName(); });
+$di->set('convert', function () { return new MorpheneDB\Helpers\Convert(); });
+$di->set('largeNumber', function () { return new MorpheneDB\Helpers\LargeNumber(); });
+$di->set('reputation', function () { return new MorpheneDB\Helpers\Reputation(); });
+$di->set('timeAgo', function () { return new MorpheneDB\Helpers\TimeAgo(); });
+$di->set('opName', function () { return new MorpheneDB\Helpers\OpName(); });

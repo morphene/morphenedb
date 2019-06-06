@@ -1,7 +1,7 @@
 <?php
-namespace SteemDB\Controllers;
+namespace MorpheneDB\Controllers;
 
-use SteemDB\Models\Block30d;
+use MorpheneDB\Models\Block30d;
 
 class BlocksController extends ControllerBase
 {

@@ -1,8 +1,8 @@
 <?php
-namespace SteemDB\Controllers;
+namespace MorpheneDB\Controllers;
 
-use SteemDB\Models\Account;
-use SteemDB\Models\Statistics;
+use MorpheneDB\Models\Account;
+use MorpheneDB\Models\Statistics;
 
 class AccountsController extends ControllerBase
 {
@@ -22,35 +22,9 @@ class AccountsController extends ControllerBase
             "vesting_withdraw_rate" => -1
           );
           break;
-        case "followers_mvest":
-          $sort = array(
-            "followers_mvest" => -1,
-          );
-          break;
-        case "sbd":
-          $sort = array(
-            "total_sbd_balance" => -1,
-          );
-          break;
-        case "steem":
+        case "morph":
           $sort = array(
             "total_balance" => -1,
-          );
-          break;
-        case "reputation":
-          $query['reputation'] = array('$gt' => 0);
-          $sort = array(
-            "reputation" => -1,
-          );
-          break;
-        case "posts":
-          $sort = array(
-            "post_count" => -1,
-          );
-          break;
-        case "followers":
-          $sort = array(
-            "followers_count" => -1,
           );
           break;
         default:

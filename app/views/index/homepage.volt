@@ -19,104 +19,18 @@
 
 <div class="ui body container">
   <h1 class="ui header">
-    SteemDB.com
+    MorpheneDB
     <div class="sub header">
-      Block explorer and database for the STEEM blockchain.
+      Block explorer and database for the MORPH blockchain.
     </div>
   </h1>
   <div class="ui stackable grid">
     <div class="row">
       <div class="sixteen wide column">
-        <!-- TradingView Widget BEGIN -->
-        <script type="text/javascript" src="https://d33t3vvu2t2yu5.cloudfront.net/tv.js"></script>
-        <script type="text/javascript">
-        new TradingView.widget({
-          "autosize": true,
-          "symbol": "POLONIEX:STEEMBTC",
-          "interval": "120",
-          "timezone": "Etc/UTC",
-          "theme": "White",
-          "style": "1",
-          "locale": "en",
-          "toolbar_bg": "#f1f3f6",
-          "enable_publishing": false,
-          "hide_top_toolbar": true,
-          "allow_symbol_change": true,
-          "hideideas": true
-        });
-        </script>
-        <!-- TradingView Widget END -->
       </div>
     </div>
     <div class="row">
       <div class="ten wide column">
-
-        <div class="ui small dividing header">
-          {#<a class="ui tiny blue basic button" href="/stats" style="float:right">
-            View more details
-          </a>#}
-          30-Day MVest Distribution
-          <div class="sub header">
-            Distribution of stake by the blockchain through various channels over 30 days.
-          </div>
-        </div>
-        <div class="ui horizontal stacked segments">
-          <div class="ui center aligned segment">
-            <div class="ui <?php echo $this->largeNumber::color($totals['curation'])?> label" data-popup data-content="<?php echo number_format($totals['curation'], 3, ".", ",") ?> VESTS" data-variation="inverted" data-position="left center">
-              <?php echo $this->largeNumber::format($totals['curation']); ?>
-            </div>
-            <div class="ui small header" style="margin-top: 0.5em;">
-              <?php echo round($totals['curation'] / array_sum($totals) * 100, 1) ?>%<br>
-              <a href="/labs/curation?grouping=monthly">
-                <small>Curation</small>
-              </a>
-            </div>
-          </div>
-          <div class="ui center aligned segment">
-            <div class="ui <?php echo $this->largeNumber::color($totals['author_rewards']['posts'])?> label" data-popup data-content="<?php echo number_format($totals['author_rewards']['posts'], 3, ".", ",") ?> VESTS" data-variation="inverted" data-position="left center">
-              <?php echo $this->largeNumber::format($totals['author_rewards']['posts']); ?>
-            </div>
-            <div class="ui small header" style="margin-top: 0.5em;">
-              <?php echo round($totals['author_rewards']['posts'] / array_sum($totals) * 100, 1) ?>%<br>
-              <a href="/labs/author">
-                <small>Authors</small>
-              </a>
-            </div>
-          </div>
-          <div class="ui center aligned segment">
-            <div class="ui <?php echo $this->largeNumber::color($totals['author_rewards']['replies'])?> label" data-popup data-content="<?php echo number_format($totals['author_rewards']['replies'], 3, ".", ",") ?> VESTS" data-variation="inverted" data-position="left center">
-              <?php echo $this->largeNumber::format($totals['author_rewards']['replies']); ?>
-            </div>
-            <div class="ui small header" style="margin-top: 0.5em;">
-              <?php echo round($totals['author_rewards']['replies'] / array_sum($totals) * 100, 1) ?>%<br>
-              <a href="/labs/author">
-                <small>Commenters</small>
-              </a>
-            </div>
-          </div>
-          <div class="ui center aligned segment">
-            <div class="ui <?php echo $this->largeNumber::color($totals['interest'])?> label" data-popup data-content="<?php echo number_format($totals['interest'], 3, ".", ",") ?> VESTS" data-variation="inverted" data-position="left center">
-              <?php echo $this->largeNumber::format($totals['interest']); ?>
-            </div>
-            <div class="ui small header" style="margin-top: 0.5em;">
-              <?php echo round($totals['interest'] / array_sum($totals) * 100, 1) ?>%<br>
-              <a href="/accounts">
-                <small>Interest</small>
-              </a>
-            </div>
-          </div>
-          <div class="ui center aligned segment">
-            <div class="ui <?php echo $this->largeNumber::color($totals['witnesses'])?> label" data-popup data-content="<?php echo number_format($totals['witnesses'], 3, ".", ",") ?> VESTS" data-variation="inverted" data-position="left center">
-              <?php echo $this->largeNumber::format($totals['witnesses']); ?>
-            </div>
-            <div class="ui small header" style="margin-top: 0.5em;">
-              <?php echo round($totals['witnesses'] / array_sum($totals) * 100, 1) ?>%<br>
-              <a href="/witnesses">
-                <small>Witnesses</small>
-              </a>
-            </div>
-          </div>
-        </div>
         <div class="ui small dividing header">
           <a class="ui tiny blue basic button" href="/blocks" style="float:right">
             View more blocks
@@ -165,40 +79,35 @@
         </table>
       </div>
       <div class="six wide centered column">
-        <div class="ui small dividing header">
-          Metrics
-          <div class="sub header">
-            Witness Parameters, global properties and statistics
-          </div>
+        <div class="ui small header">
+          Consensus State
         </div>
-        <div class="ui horizontal stacked segments">
-          <div class="ui center aligned segment">
-            <div class="ui tiny statistic">
-              <div class="value" data-props="steem_per_mvests">
-                {{ props['steem_per_mvests'] }}
-              </div>
-              <div class="label">
-                STEEM per MVest
-              </div>
-            </div>
-          </div>
-          <div class="ui center aligned segment">
-            <div class="ui tiny statistic">
-              <div class="value">
-                <span data-state-feed="base">
+        <table class="ui small definition table" id="state">
+          <tbody>
+            <tr>
+              <td class="eight wide">MORPH Inflation Rate</td>
+              <td>
+                {{ inflation }}
+              </td>
+            </tr>
+            <tr>
+              <td class="eight wide">Account Creation Fee</td>
+              <td>
+                <span data-state-witness-median="account_creation_fee">
                   <i class="notched circle loading icon"></i>
                 </span>
-              </div>
-              <div class="label">
-                per
-                <span data-state-feed="quote">
+              </td>
+            </tr>
+            <tr>
+              <td>Maximum Block Size</td>
+              <td>
+                <span data-state-witness-median="maximum_block_size">
                   <i class="notched circle loading icon"></i>
                 </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="ui divider"></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div class="ui small header">
           Network Performance
         </div>
@@ -242,58 +151,6 @@
             </tr>
           </tbody>
         </table>
-        <div class="ui small header">
-          Consensus State
-        </div>
-        <table class="ui small definition table" id="state">
-          <tbody>
-            <tr>
-              <td class="eight wide">Steem Inflation Rate</td>
-              <td>
-                {{ inflation }}
-              </td>
-            </tr>
-            <tr>
-              <td class="eight wide">Account Creation Fee</td>
-              <td>
-                <span data-state-witness-median="account_creation_fee">
-                  <i class="notched circle loading icon"></i>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td>Maximum Block Size</td>
-              <td>
-                <span data-state-witness-median="maximum_block_size">
-                  <i class="notched circle loading icon"></i>
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td>SBD Interest Rate</td>
-              <td>
-                <span data-state-witness-median="sbd_interest_rate">
-                  <i class="notched circle loading icon"></i>
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="ui small header">
-          Reward Pool
-        </div>
-        <table class="ui small definition table" id="global_props">
-          <tbody>
-            {% for key, value in funds %}
-              {% if key not in ['_id', 'id', 'name'] %}
-                <tr>
-                  <td class="eight wide">{{ key }}</td>
-                  <td data-props="{{ key }}">{{ value }}</td>
-                </tr>
-              {% endif %}
-            {% endfor %}
-          </tbody>
-        </table>
 
         <div class="ui small header">
           Global Properties
@@ -301,7 +158,7 @@
         <table class="ui small definition table" id="global_props">
           <tbody>
             {% for key, value in props %}
-              {% if key not in ['id', 'steem_per_mvests', 'head_block_id', 'recent_slots_filled', 'head_block_number'] %}
+              {% if key not in ['id', 'morph_per_mvests', 'head_block_id', 'recent_slots_filled', 'head_block_number'] %}
                 <tr>
                   <td class="eight wide">{{ key }}</td>
                   <td data-props="{{ key }}">{{ value }}</td>
@@ -365,9 +222,6 @@
               });
               $.each(data.state.witness_schedule.median_props, function(key, value) {
                 $("[data-state-witness-median="+key+"]").html(value);
-              });
-              $.each(data.state.feed_price, function(key, value) {
-                $("[data-state-feed="+key+"]").html(value);
               });
             }
             if(data.block) {

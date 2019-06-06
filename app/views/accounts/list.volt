@@ -21,37 +21,16 @@
             <i class="dropdown icon"></i>
             <div class="menu">
               <a class="{{ filter == 'vest' ? 'active' : '' }} item" href="/accounts/vest">
-                Vests/SP
+                VESTS
               </a>
-              <a class="{{ filter == 'sbd' ? 'active' : '' }} item" href="/accounts/sbd">
-                SBD
-              </a>
-              <a class="{{ filter == 'steem' ? 'active' : '' }} item" href="/accounts/steem">
-                STEEM
+              <a class="{{ filter == 'morph' ? 'active' : '' }} item" href="/accounts/morph">
+                MORPH
               </a>
               <a class="{{ filter == 'powerdown' ? 'active' : '' }} item" href="/accounts/powerdown">
                 Power Down
               </a>
             </div>
           </div>
-          <a class="{{ filter == 'posts' ? 'active' : '' }} item" href="/accounts/posts">
-            Posts
-          </a>
-          <div class="ui dropdown item">
-            Social
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              <a class="{{ filter == 'followers' ? 'active' : '' }} item" href="/accounts/followers">
-                Followers
-              </a>
-              <a class="{{ filter == 'followers_mvest' ? 'active' : '' }} item" href="/accounts/followers_mvest">
-                Value of Followers
-              </a>
-            </div>
-          </div>
-          <a class="{{ filter == 'reputation' ? 'active' : '' }} item" href="/accounts/reputation">
-            Reputation
-          </a>
           <div class="right menu">
             <div class="item">
               Data updated <?php echo $this->timeAgo::mongo($accounts[0]->scanned); ?>
@@ -62,11 +41,9 @@
           <thead>
             <tr>
               <th>Account</th>
-              <th class="center aligned">Followers</th>
-              <th class="center aligned">Posts</th>
               <th class="right aligned">Vests</th>
               <th class="right aligned">Powerdown</th>
-              <th class="right aligned">Balances</th>
+              <th class="right aligned">Balance</th>
             </tr>
           </thead>
           <tbody>
@@ -74,22 +51,8 @@
             <tr>
               <td>
                 <div class="ui header">
-                  <div class="ui circular blue label">
-                    <?php echo $this->reputation::number($account->reputation) ?>
-                  </div>
-                  {{ link_to("/@" ~ account.name, account.name) }}
+                  {{ account.name }}
                 </div>
-              </td>
-              <td class="collapsing center aligned">
-                <div class="ui small header">
-                  {{ account.followers_count }}
-                  <div class="sub header">
-                    <?php echo $this->largeNumber::format($account->followers_mvest); ?>
-                  </div>
-                </div>
-              </td>
-              <td class="collapsing center aligned">
-                {{ account.post_count }}
               </td>
               <td class="collapsing right aligned">
                 {{ partial("_elements/vesting_shares", ['current': account]) }}
@@ -104,10 +67,7 @@
               </td>
               <td class="collapsing right aligned">
                 <div class="ui small header">
-                  <?php echo number_format($account->total_sbd_balance, 3, ".", ",") ?> SBD
-                  <div class="sub header">
-                    <?php echo number_format($account->total_balance, 3, ".", ",") ?> STEEM
-                  </div>
+                  <?php echo number_format($account->total_balance, 3, ".", ",") ?> MORPH
                 </div>
               </td>
             </tr>

@@ -2,7 +2,7 @@ from autobahn.twisted.websocket import WebSocketServerFactory, \
     WebSocketServerProtocol, \
     listenWS
 from datetime import datetime, timedelta
-from steem import Steem
+from morphenepython import MorpheneClient
 from pprint import pprint
 from twisted.internet import reactor
 from twisted.python import log
@@ -15,9 +15,10 @@ import os
 import re
 
 fullnodes = [
-    'https://api.steemit.com',
+    'ws://morphene-witness:8090',
+    # 'https://morphene.io/rpc',
 ]
-rpc = Steem(fullnodes)
+mph = MorpheneClient(fullnodes)
 
 class BroadcastServerProtocol(WebSocketServerProtocol):
 
@@ -42,7 +43,7 @@ class BroadcastServerFactory(WebSocketServerFactory):
 
     def __init__(self, url):
         WebSocketServerFactory.__init__(self, url)
-        props = rpc.get_dynamic_global_properties()
+        props = mph.rpc.get_dynamic_global_properties()
         self.clients = []
         self.channels = {}
         self.tickcount = 0
@@ -52,8 +53,8 @@ class BroadcastServerFactory(WebSocketServerFactory):
         self.tick()
 
     def tick(self):
-        props = rpc.get_dynamic_global_properties()
-        state = rpc.get_state('@jesta')
+        props = mph.rpc.get_dynamic_global_properties()
+        state = mph.rpc.get_state('@initwitness')
         irreversible = props['last_irreversible_block_num']
 
         if props['head_block_number'] != self.last_block:
@@ -72,21 +73,20 @@ class BroadcastServerFactory(WebSocketServerFactory):
         reactor.callLater(1, self.tick)
 
     def publishProps(self, props):
-        total_vesting_fund_steem = float(props['total_vesting_fund_steem'].split(" ")[0])
+        total_vesting_fund_morph = float(props['total_vesting_fund_morph'].split(" ")[0])
         total_vesting_shares = float(props['total_vesting_shares'].split(" ")[0])
-        props['steem_per_mvests'] = math.floor(total_vesting_fund_steem / total_vesting_shares * 1000000 * 1000) / 1000
+        props['morph_per_mvests'] = math.floor(total_vesting_fund_morph / total_vesting_shares * 1000000 * 1000) / 1000
         props['reversible_blocks'] = props['head_block_number'] - props['last_irreversible_block_num']
         self.publish("props", "props", props)
 
     def publishState(self, state):
         partial = {
-          'witness_schedule': state['witness_schedule'],
-          'feed_price': state['feed_price']
+          'witness_schedule': state['witness_schedule']
         }
         self.publish("state", "state", partial)
 
     def publishBlock(self, height):
-        block = rpc.get_block(height)
+        block = mph.rpc.get_block(height)
         data = {
             'height': height,
             'accounts': set([]),
@@ -98,9 +98,10 @@ class BroadcastServerFactory(WebSocketServerFactory):
         if block['transactions']:
             for tx in block['transactions']:
                 for op in tx['operations']:
+                    opType = op['type'].replace("_operation","")
                     data['opCount'] += 1
-                    data['opTypes'].append(op[0])
-                    for account in self.getRelatedAccounts(op[0], op[1]):
+                    data['opTypes'].append(opType)
+                    for account in self.getRelatedAccounts(opType, op['value']):
                         data['accounts'].add(account)
 
         data['opCounts'] = Counter(data['opTypes'])
@@ -108,24 +109,13 @@ class BroadcastServerFactory(WebSocketServerFactory):
         self.publish("blocks", "block", data)
 
     def publishOps(self, block):
-        ops = rpc.get_ops_in_block(block, False)
+        ops = mph.rpc.get_ops_in_block(block, False)
         for op in ops:
             opType = op['op'][0]
             opData = op['op'][1]
-            # notify anyone subscribed to an account channel (e.g. @username)
             for account in self.getRelatedAccounts(opType, opData):
                 channel = "@{}".format(account)
                 self.publish(channel, opType, op)
-            # NYI - notify anyone subscribed to a related event channel (e.g. OnVote, OnComment, etc)
-            # for channel in self.getRelatedEvents(opType):
-            #     self.publish(event, opType, json.dumps(op))
-
-    # NYI
-    # def getRelatedEvents(self, opType):
-    #     opTypeEvents = {
-    #         'vote': 'OnVote',
-    #         'comment': 'OnComment',
-    #     }
 
     # retrieves list of related accounts based on op type
     def getRelatedAccounts(self, opType, opData):
@@ -134,30 +124,14 @@ class BroadcastServerFactory(WebSocketServerFactory):
             'account_create':           [],
             'account_update':           [],
             'account_witness_vote':     ['account', 'witness'],
-            'author_reward':            ['author'],
-            'comment':                  ['author', 'parent_author'],
-            'convert':                  [],
-            'curation_reward':          ['curator'],
-            'custom_json':              [],
-            'feed_publish':             [],
-            'fill_order':               [],
             'fill_vesting_withdraw':    [],
-            'limit_order_cancel':       [],
-            'limit_order_create':       [],
-            'pow2':                     [],
+            'pow':                      [],
             'transfer':                 [],
             'transfer_to_vesting':      [],
-            'vote':                     ['author', 'voter']
         }
         if opType in fieldMap.keys():
             for field in fieldMap[opType]:
                 accounts.add(opData[field])
-
-        # Find mentions of usernames (may return false positives)
-        if opType == 'comment':
-            matches = self.mentions.findall(opData['body'])
-            for match in matches:
-                accounts.add(match[1])
 
         return accounts
 

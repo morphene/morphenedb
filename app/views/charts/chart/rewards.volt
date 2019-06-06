@@ -20,15 +20,15 @@
       var dateString = d._id.year + "/" + d._id.month + "/" + d._id.day;
       return new Date(dateString);
     };
-    var pSteem = function(d) { return +d.steem; };
+    var pMORPH = function(d) { return +d.morph; };
     var pVest = function(d) { return +d.vest; };
     var pSbd = function(d) { return +d.sbd; };
 
     // Chart Posts
-    var lSteem = new Plottable.Plots.StackedBar();
-    lSteem.addDataset(dataset);
-    lSteem.x(pDate, xScale)
-          .y(pSteem, yScale)
+    var lMORPH = new Plottable.Plots.StackedBar();
+    lMORPH.addDataset(dataset);
+    lMORPH.x(pDate, xScale)
+          .y(pMORPH, yScale)
           .attr("fill", "#777");
 
     var lVest = new Plottable.Plots.Line();
@@ -58,12 +58,12 @@
 
     legend.maxEntriesPerRow(5)
 
-    var yLabelValue = new Plottable.Components.AxisLabel("SBD/STEEM", "90");
+    var yLabelValue = new Plottable.Components.AxisLabel("SBd.morph", "90");
     var xLabelTitle = new Plottable.Components.TitleLabel("Author Reward History", "0");
     var yLabelVest = new Plottable.Components.AxisLabel("VESTS", "270");
 
 
-    var plots = new Plottable.Components.Group([lSteem, lVest, lSbd]);
+    var plots = new Plottable.Components.Group([lMORPH, lVest, lSbd]);
     var table = new Plottable.Components.Table([
       [null, null, xLabelTitle, null, null],
       [null, null, legend, null, null],

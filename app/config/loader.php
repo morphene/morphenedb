@@ -5,10 +5,10 @@ use Phalcon\Loader;
 $loader = new Loader();
 
 $loader->registerNamespaces([
-    'SteemDB\Models'      => $config->application->modelsDir,
-    'SteemDB\Controllers' => $config->application->controllersDir,
-    'SteemDB\Helpers'     => $config->application->helpersDir,
-    'SteemDB'             => $config->application->libraryDir
+    'MorpheneDB\Models'      => $config->application->modelsDir,
+    'MorpheneDB\Controllers' => $config->application->controllersDir,
+    'MorpheneDB\Helpers'     => $config->application->helpersDir,
+    'MorpheneDB'             => $config->application->libraryDir
 ]);
 
 $loader->registerDirs(array(

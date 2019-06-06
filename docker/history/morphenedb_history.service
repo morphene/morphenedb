@@ -1,0 +1,11 @@
+[Unit]
+Description=MorpheneDB History Service
+
+[Service]
+Environment=morphenenode=morphene.io/rpc
+WorkingDirectory=/var/www/morphenedb/docker/history
+ExecStart=/usr/bin/python3 history.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

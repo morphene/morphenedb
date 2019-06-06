@@ -1,0 +1,11 @@
+[Unit]
+Description=MorpheneDB Sync Service
+
+[Service]
+Environment=morphenenode=morphene.io/rpc
+WorkingDirectory=/var/www/morphenedb/docker/sync
+ExecStart=/usr/bin/python3 sync.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

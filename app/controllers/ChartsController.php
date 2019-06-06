@@ -1,5 +1,5 @@
 <?php
-namespace SteemDB\Controllers;
+namespace MorpheneDB\Controllers;
 
 class ChartsController extends ControllerBase
 {
@@ -9,12 +9,7 @@ class ChartsController extends ControllerBase
 
   }
 
-  public function steemAction()
-  {
-
-  }
-
-  public function rewardsAction()
+  public function morphAction()
   {
 
   }

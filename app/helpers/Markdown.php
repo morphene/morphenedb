@@ -1,5 +1,5 @@
 <?php
-namespace SteemDB\Helpers;
+namespace MorpheneDB\Helpers;
 
 use Phalcon\Tag;
 use League\CommonMark\CommonMarkConverter;
@@ -23,7 +23,7 @@ class Markdown
     // $string = preg_replace('/(https?:\/\/\S+)/', '<a href="\1">\1</a>', $string);
 
     // Linkify usernames
-    $string = preg_replace('/(^|\s)@((?:[^_\W]|-)+)/', '\1<a href="http://steemdb.com/@\2">@\2</a>', $string);
+    $string = preg_replace('/(^|\s)@((?:[^_\W]|-)+)/', '\1<a href="http://morphene.io/explore/@\2">@\2</a>', $string);
 
     // Linkify tags
     $string = preg_replace('/(^|\s)#(\w+)/', '\1<a href="/forums/tag/\2">#\2</a>', $string);
@@ -42,12 +42,6 @@ class Markdown
     // Parse document for modification at the dom level
     $dom=new \DOMDocument();
     $dom->loadHTML($string);
-
-    // Prefix all images with steemit's image processor
-    foreach($dom->getElementsByTagName("img") as $img) {
-      $original = $img->getAttribute("src");
-      $img->setAttribute( "src" , "https://steemitimages.com/0x0/" . $original );
-    }
 
     // Format all line breaks to semantic styling
     foreach($dom->getElementsByTagName("hr") as $img) {

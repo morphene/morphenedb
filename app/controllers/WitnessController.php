@@ -1,13 +1,13 @@
 <?php
-namespace SteemDB\Controllers;
+namespace MorpheneDB\Controllers;
 
 use MongoDB\BSON\UTCDateTime;
 use MongoDB\BSON\ObjectID;
 
-use SteemDB\Models\Witness;
-use SteemDB\Models\WitnessMiss;
-use SteemDB\Models\WitnessVote;
-use SteemDB\Models\Statistics;
+use MorpheneDB\Models\Witness;
+use MorpheneDB\Models\WitnessMiss;
+use MorpheneDB\Models\WitnessVote;
+use MorpheneDB\Models\Statistics;
 
 class WitnessController extends ControllerBase
 {
@@ -62,17 +62,8 @@ class WitnessController extends ControllerBase
       if($index < 20) {
         $witness->row_status = "positive";
       }
-      // Highlight Red is no price feed exists
-      if($witness->sbd_exchange_rate->base === "0.000 STEEM") {
-        $witness->row_status = "warning";
-      }
-      // Highlight Red is price feed older than 24 hrs
-      if((string) $witness->last_sbd_exchange_update <= strtotime("-1 week") * 1000) {
-        $witness->row_status = "warning";
-        $witness->last_sbd_exchange_update_late = true;
-      }
       // Highlight Red if the signing key is invalid
-      if(!$witness->signing_key || $witness->signing_key == "" || $witness->signing_key == "STM1111111111111111111111111111111114T1Anm") {
+      if(!$witness->signing_key || $witness->signing_key == "" || $witness->signing_key == "MPH1111111111111111111111111111111114T1Anm") {
         $witness->row_status = "negative";
         $witness->invalid_signing_key = true;
       }

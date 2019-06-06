@@ -1,6 +1,6 @@
 <?php
 
-namespace SteemDB\Models;
+namespace MorpheneDB\Models;
 
 use Phalcon\Mvc\MongoCollection;
 
