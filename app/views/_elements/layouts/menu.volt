@@ -19,16 +19,7 @@
 <div class="ui inverted top fixed mobile hidden menu">
   <div class="ui container">
     <div class="item" style="background: white">
-      <div class="ui floating labeled dropdown">
-        <img class="ui avatar image" style="border-radius: 0; width: 24px; height: 24px" src="https://db.morphene.io/explorers/morphene.png"/>
-        <i class="dropdown black icon"></i>
-        <div class="menu">
-          <a class="active item" href="https://db.morphene.io/{{ router.getRewriteUri() | striptags }}">
-            <img class="ui avatar image" style="border-radius: 0; width: 24px; height: 24px" src="https://db.morphene.io/explorers/morphene.png"/>
-            MorpheneDB
-          </a>
-        </div>
-      </div>
+      <img class="ui avatar image" style="border-radius: 0; width: 24px; height: 24px" src="https://db.morphene.io/explorers/morphene.png"/>
     </div>
     <a href="/" class="header {{ (router.getControllerName() == 'index') ? 'active' : '' }} item">MorpheneDB</span>
     <a href="/accounts" class="{{ (router.getControllerName() == 'account' or router.getControllerName() == 'accounts') ? 'active' : '' }} item">accounts</a>
