@@ -20,11 +20,11 @@
   <div class="ui container">
     <div class="item" style="background: white">
       <div class="ui floating labeled dropdown">
-        <img class="ui avatar image" style="border-radius: 0; width: 24px; height: 24px" src="https://morphene.io/explore/explorers/morphene.png"/>
+        <img class="ui avatar image" style="border-radius: 0; width: 24px; height: 24px" src="https://db.morphene.io/explorers/morphene.png"/>
         <i class="dropdown black icon"></i>
         <div class="menu">
-          <a class="active item" href="https://morphene.io/explore/{{ router.getRewriteUri() | striptags }}">
-            <img class="ui avatar image" style="border-radius: 0; width: 24px; height: 24px" src="https://morphene.io/explore/explorers/morphene.png"/>
+          <a class="active item" href="https://db.morphene.io/{{ router.getRewriteUri() | striptags }}">
+            <img class="ui avatar image" style="border-radius: 0; width: 24px; height: 24px" src="https://db.morphene.io/explorers/morphene.png"/>
             MorpheneDB
           </a>
         </div>

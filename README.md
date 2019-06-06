@@ -1,6 +1,6 @@
 ## MorpheneDB
 
-https://morphene.io/explore
+https://db.morphene.io/
 
 open source blockchain explorer for the steem blockchain - build on phalcon + mongodb
 
