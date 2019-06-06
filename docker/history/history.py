@@ -11,9 +11,7 @@ import re
 from apscheduler.schedulers.background import BackgroundScheduler
 
 fullnodes = [
-    'http://morphene-witness:8090',
-    # 'http://localhost:8091',
-    # 'https://morphene.io/rpc',
+    'https://morphene.io/rpc',
 ]
 mph = MorpheneClient(fullnodes)
 mongo = MongoClient("mongodb://mongo:27017")

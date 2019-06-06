@@ -15,8 +15,7 @@ import os
 import re
 
 fullnodes = [
-    'ws://morphene-witness:8090',
-    # 'https://morphene.io/rpc',
+    'https://morphene.io/rpc',
 ]
 mph = MorpheneClient(fullnodes)
 

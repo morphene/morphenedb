@@ -9,8 +9,7 @@ import sys
 import os
 
 fullnodes = [
-    'http://morphene-witness:8090',
-#    'https://morphene.io/rpc',
+    'https://morphene.io/rpc',
 ]
 mph = MorpheneClient(fullnodes)
 mongo = MongoClient("mongodb://mongo:27017")
