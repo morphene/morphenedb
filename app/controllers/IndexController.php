@@ -16,7 +16,7 @@ class IndexController extends ControllerBase
 
   public function homepageAction() {
     $this->view->props = $props = $this->morphened->getProps();
-    $this->view->inflation = round(max((4950 - $props['head_block_number'] / 21000), 95) / 100, 4);
+    $this->view->inflation = round(max((1500 - $props['head_block_number'] / 98000), 95) / 100, 4);
     $this->view->totals = $totals = $this->util->distribution($props);
     # Transactions
     $tx = $results = Status::findFirst([['_id' => 'transactions-24h']]);
