@@ -69,7 +69,7 @@
                   </div>
                 </td>
                 <td>
-                  {% include "_elements/definition_table" with ['data': op[1] + ['txid': current['transaction_ids'][idx]]] %}
+                  {% include "_elements/definition_table" with ['data': op + ['txid': current['transaction_ids'][idx]]] %}
                 </td>
               </tr>
               {% endfor %}
